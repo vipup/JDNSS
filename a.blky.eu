@@ -1,0 +1,14 @@
+@	IN	SOA	@  a.blky.eu (
+			11 ; serial
+			11 ; refresh
+			11 ; retry
+			11 ; expire
+			11 ; minimum
+			)
+
+    IN	A	192.168.1.1
+    IN  NS	a.blky.eu.
+
+www	IN	A	192.168.1.1
+ttt	IN	A	123.31.31.21
+
