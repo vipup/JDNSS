@@ -121,7 +121,7 @@ class DBConnection {
         logger.traceEntry("_D:"+new ObjectMessage(domainId));
         Statement stmt = null;
         ResultSet rs =null;
-        List<RR> ret= Collections.emptyList();
+        List<RR> ret= new ArrayList<RR>();
         try { 
             String stype = type.name();
             logger.trace(stype);
