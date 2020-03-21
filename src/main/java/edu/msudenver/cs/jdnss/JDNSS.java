@@ -59,7 +59,15 @@ class JDNSS {
  
     	}catch(JDNSEXception e) {
     		logger.debug("longest={}",e);    	
-    		String domain = "a.blky.eu";
+    		fackeZone(name, z);
+    		
+    	}
+        return z;
+    }
+
+	private static void fackeZone(String name, Zone z)	{
+		try {
+			String domain = "a.blky.eu";
 			String server= "ns1.blky.eu";
 			String contact= "postmaster@blky.eu";
 			int serial = 70;
@@ -69,12 +77,13 @@ class JDNSS {
 			int minimum = 20;
 			int ttl = 30;
 			((BindZone)z).add( "SOA", new SOARR(domain, server, contact, serial, refresh, retry, expire, minimum, ttl) );
-    		String address="1.2.3.4";
+			String address="1.2.3.4";
 			((BindZone)z).add( "A", new ARR(name, ttl, address)) ;
-    		
-    	}
-        return z;
-    }
+		}catch(Throwable e) {
+			// 
+			logger.error("	private static void fackeZone(String name, Zone z)={}",e);
+		}
+	}
 
     private static void start() {
         for (String IPAddress : jargs.IPaddresses) {
