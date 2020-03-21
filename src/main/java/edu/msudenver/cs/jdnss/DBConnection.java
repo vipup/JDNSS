@@ -144,6 +144,7 @@ class DBConnection {
         }finally {
 			stclose(stmt);
 			rsclose(rs); 
+			logger.trace("RET:{}",ret);
 		}
         return ret;
  
@@ -154,6 +155,7 @@ class DBConnection {
         final String dbcontent = rs.getString("content");
         final int dbttl = rs.getInt("ttl");
         final int dbprio = rs.getInt("prio");
+        logger.trace("RR:{}//{}//{}//{}//[{}]/:{}",dbname,dbcontent,dbttl,dbprio,type,name);
         final RR emptyRR = new EmptyRR();
 
         switch (type) {
