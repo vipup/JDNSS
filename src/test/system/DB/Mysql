@@ -88,8 +88,8 @@ insert into records (domain_id, name,type,content,ttl,prio)
     
         insert into records (domain_id, name,type,content,ttl,prio)
     values (1, 'googlonos.a.blky.eu', 'A', '8.8.8.8', 64, 0);
-            insert into records (domain_id, name,type,content,ttl,prio)
-    values (1, 'googlonos.a.blky.eu', 'SOA', 'ns1.blky.eu  11 12 13 14 15 16 17 18 19 20', 64, 0);
-    
+            insert into records (domain_i
+insert into records (domain_id, name,type,content,ttl,prio)     values (1, 'timer.a.blky.eu', 'SOA', 'ns2.blky.eu  11 12 13 14 15 16 17 18 19 20', 64, 0);
+insert into records (domain_id, name,type,content,ttl,prio)     values (1, 'timer.a.blky.eu', 'A', '18.44.33.238', 64, 0);
  
     
