@@ -34,34 +34,38 @@ class JDNSS {
      */
     static Zone getZone(String name) {
     	logger.traceEntry("OM:{}::{}",new ObjectMessage(name),name);
-    	String longest = null; 
-    	// FIXME DAD TODO
-    	Zone z = new BindZone(name);
+    	String longest = null; // DAD TODO
     	try {
-    		longest = Utils.findLongest(bindZones.keySet(), name);
-    		logger.traceEntry("longest={}",longest);  
-	        if (longest == null) {
-	        	logger.traceEntry("longest=={}",longest);
-	            if (DBConnection != null) {
-	            	logger.traceEntry("DBConnection=={}",DBConnection);
-	                DBZone d = DBConnection.getZone(name);
-	                logger.traceEntry("DBZone=={}",d);
-	                if (d.isEmpty()) { 
-	                    //z=z;  
-	                }else {
-	                	z = d;
-	                }
-	            } 
-	        }else {
-	        	logger.traceEntry("longest==={}",longest);
-	        } 
-	        z = bindZones.getOrDefault(longest, null);
- 
+    		  longest = Utils.findLongest(bindZones.keySet(), name);
+    		logger.traceEntry("longest={}",longest);
     	}catch(JDNSEXception e) {
-    		logger.debug("longest={}",e);    	
-    		fackeZone(name, z);
-    		
+    		logger.debug("longest={}",e);
     	}
+
+        if (longest == null) {
+        	logger.traceEntry("longest=={}",longest);
+            if (DBConnection != null) {
+            	logger.traceEntry("DBConnection=={}",DBConnection);
+                DBZone d = DBConnection.getZone(name);
+                logger.traceEntry("DBZone=={}",d);
+                if (d.isEmpty()) { 
+                    return new BindZone();
+                }
+                return d;
+            }
+            return new BindZone();
+        }else {
+        	logger.traceEntry("longest==={}",longest);
+        }
+
+        Zone z = bindZones.getOrDefault(longest, null);
+        if (z == null) {
+        	logger.traceEntry(" return new BindZone();==={}",z);
+            return new BindZone();
+        }else {
+        	logger.traceEntry("z==={}",z);
+        }
+
         return z;
     }
 
