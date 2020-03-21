@@ -22,9 +22,11 @@ class Utils {
         logger.traceEntry("E:"+e);
         logger.traceEntry("S:"+s);
         if (e == null) {
+        	logger.traceEntry("throw new java.lang.NullPointerException(e is marked non-null but is null") ;
             throw new java.lang.NullPointerException("e is marked non-null but is null");
         }
         if (s == null) {
+        	logger.traceEntry("throw new java.lang.NullPointerException(S is marked non-null but is null") ;
             throw new java.lang.NullPointerException("s is marked non-null but is null");
         }
         assert !e.isEmpty();

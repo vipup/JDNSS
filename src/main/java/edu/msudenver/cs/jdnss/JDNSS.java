@@ -34,9 +34,13 @@ class JDNSS {
      */
     static Zone getZone(String name) {
     	logger.traceEntry("OM:{}::{}",new ObjectMessage(name),name);
-
-        String longest = Utils.findLongest(bindZones.keySet(), name);
-        logger.traceEntry("longest={}",longest);
+    	String longest = null; // DAD TODO
+    	try {
+    		  longest = Utils.findLongest(bindZones.keySet(), name);
+    		logger.traceEntry("longest={}",longest);
+    	}catch(Exception e) {
+    		logger.debug("longest={}",e);
+    	}
 
         if (longest == null) {
         	logger.traceEntry("longest=={}",longest);
