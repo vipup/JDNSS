@@ -53,11 +53,13 @@ class DBConnection {
         // first, get them all
         ResultSet rs = null;
         try {
+        	logger.traceEntry("\"SELECT * FROM domains\"=={}",name);
             rs = stmt.executeQuery("SELECT * FROM domains");
 
             while (rs.next()) {
                 v.add(rs.getString("name"));
             }
+            logger.traceEntry("r=={}",v);
         } catch (SQLException sqle) {
             try {
                 stmt.close();
@@ -78,11 +80,12 @@ class DBConnection {
 
         // then, populate a DBZone with what we found.
         try {
+        	logger.traceEntry("SELECT * FROM domains WHERE name = '{}..'", s);
             rs = stmt.executeQuery ("SELECT * FROM domains WHERE name = '" + s + "'");
 
             rs.next();
             final int domainId = rs.getInt("id");
-            logger.trace(domainId);
+            logger.trace("domainId={}",domainId);
 
             assert !rs.next();
 
