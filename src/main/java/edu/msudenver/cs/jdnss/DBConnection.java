@@ -143,6 +143,8 @@ class DBConnection {
             }
         } catch (SQLException sqle) {
             logger.catching(sqle);
+        } catch (Exception e) {
+            logger.catching(e);
         }finally {
 			stclose(stmt);
 			rsclose(rs); 
