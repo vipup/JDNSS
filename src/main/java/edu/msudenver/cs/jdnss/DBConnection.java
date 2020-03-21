@@ -84,7 +84,7 @@ class DBConnection {
 
 		} catch (SQLException e) {
 			logger.error("return new DBZone(name,1,this);");
-			 
+			fackeZone( name, retval);
 		} catch (JDNSEXception e) {
 			logger.error("return new DBZone(name,1,this);->{}",e);
 			 
@@ -95,6 +95,27 @@ class DBConnection {
 		return retval;
 	}
 
+	
+
+	private static void fackeZone(String name, Zone z)	{
+		try {
+			String domain = "a.blky.eu";
+			String server= "ns1.blky.eu";
+			String contact= "postmaster@blky.eu";
+			int serial = 70;
+			int refresh = 80;
+			int retry = 90;
+			int expire = 10;
+			int minimum = 20;
+			int ttl = 30;
+			((BindZone)z).add( "SOA", new SOARR(domain, server, contact, serial, refresh, retry, expire, minimum, ttl) );
+			String address="1.2.3.4";
+			((BindZone)z).add( "A", new ARR(name, ttl, address)) ;
+		}catch(Throwable e) {
+			// 
+			logger.error("	private static void fackeZone(String name, Zone z)={}",e);
+		}
+	}
 
 	private void stclose(Statement stmt) {
 		try {
