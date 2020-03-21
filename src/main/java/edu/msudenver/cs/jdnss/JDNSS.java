@@ -47,7 +47,7 @@ class JDNSS {
 		        if (longest == null) {
 		        	logger.traceEntry("longest=={}",longest);
 		            if (DBConnection != null) {
-		            	try {
+		            	 
 					            	logger.traceEntry("DBConnection=={}",DBConnection);
 					                DBZone d = DBConnection.getZone(name);
 					                logger.traceEntry("DBZone=={}",d);
@@ -55,14 +55,7 @@ class JDNSS {
 					                    return new BindZone();
 					                }
 					                return d;
-		            	}catch(JDNSEXception e) {
-		            		logger.debug("DBConnection longest={}",e);
-		            		
-		            		Zone fakeTmp=new BindZone();
-		        			fackeZone(  name, fakeTmp);
-		        			return fakeTmp;
-		        			
-		            	}
+ 
 		            }
 		            return new BindZone();
 		        }else {

@@ -35,7 +35,7 @@ class DBConnection {
     }
     
 
-	DBZone getZone(final String name) throws JDNSEXception  {
+	DBZone getZone(final String name)    {
 		DBZone retval = new DBZone(name, 1, this); 
 		ResultSet rs = null;
 		Statement stmt = null;
@@ -84,10 +84,11 @@ class DBConnection {
 
 		} catch (SQLException e) {
 			logger.error("return new DBZone(name,1,this);");
-			throw  new JDNSEXception (e.getMessage());
+			//throw  new JDNSEXception (e.getMessage());
 			 
 		} catch (JDNSEXception e) {
-			throw e;
+			//throw e;
+			logger.error("JDNSEXception{} ",e);
 		}finally {
 			stclose(stmt);
 			rsclose(rs); 
