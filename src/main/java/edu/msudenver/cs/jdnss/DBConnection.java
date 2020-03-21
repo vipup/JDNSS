@@ -36,7 +36,7 @@ class DBConnection {
     
 
 	DBZone getZone(final String name)    {
-		DBZone retval = new DBZone(name, 1, this); 
+		DBZone retval = null; 
 		ResultSet rs = null;
 		Statement stmt = null;
 		try {
@@ -83,7 +83,8 @@ class DBConnection {
 			retval =  new DBZone(s, domainId, this);
 
 		} catch (SQLException e) {
-			logger.error("return new DBZone(name,1,this);");
+			logger.error("return new DBZone(EMPTY!);");
+			retval = new DBZone();
 			//throw  new JDNSEXception (e.getMessage());
 			 
 		} catch (JDNSEXception e) {
