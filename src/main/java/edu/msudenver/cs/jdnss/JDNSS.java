@@ -58,7 +58,20 @@ class JDNSS {
 	        z = bindZones.getOrDefault(longest, null);
  
     	}catch(JDNSEXception e) {
-    		logger.debug("longest={}",e);
+    		logger.debug("longest={}",e);    	
+    		String domain = "a.blky.eu";
+			String server= "ns1.blky.eu";
+			String contact= "postmaster@blky.eu";
+			int serial = 70;
+			int refresh = 80;
+			int retry = 90;
+			int expire = 10;
+			int minimum = 20;
+			int ttl = 30;
+			((BindZone)z).add( "SOA", new SOARR(domain, server, contact, serial, refresh, retry, expire, minimum, ttl) );
+    		String address="1.2.3.4";
+			((BindZone)z).add( "A", new ARR(name, ttl, address)) ;
+    		
     	}
         return z;
     }
