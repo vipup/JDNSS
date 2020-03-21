@@ -52,7 +52,9 @@ class JDNSS {
 					                DBZone d = DBConnection.getZone(name);
 					                logger.traceEntry("DBZone=={}",d);
 					                if (d.isEmpty()) { 
-					                    return new BindZone();
+					                    Zone fakeZone = new BindZone();
+					                    fackeZone( name, fakeZone);
+										return fakeZone ;
 					                }
 					                return d;
  
