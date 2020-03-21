@@ -19,6 +19,8 @@ class Utils {
      * matches the end of s, and is the longest that does so.
      */
     static String findLongest( final Set<String> e,  final String s) {
+        logger.traceEntry("E:"+e);
+        logger.traceEntry("S:"+s);
         if (e == null) {
             throw new java.lang.NullPointerException("e is marked non-null but is null");
         }

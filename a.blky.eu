@@ -1,4 +1,4 @@
-@	IN	SOA	@  a.blky.eu dno@uniposta.de (
+@	IN	SOA	@  a.blky.eu  (
 			11 ; serial
 			11 ; refresh
 			11 ; retry
