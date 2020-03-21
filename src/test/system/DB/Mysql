@@ -54,19 +54,21 @@ GRANT SELECT ON supermasters TO JDNSS@localhost IDENTIFIED BY 'JDNSS';
 GRANT ALL ON domains TO JDNSS@localhost IDENTIFIED BY 'JDNSS';
 GRANT ALL ON records TO JDNSS@localhost IDENTIFIED BY 'JDNSS';
 
+-- insert into records (domain_id, name,type,content,ttl,prio)
+--    values (1, 'www.blky.eu', 'AAAA', 'FEDC:BA98:7654:3210:FEDC:BA98:7654:3210', 66, 0);
+insert into records (domain_id, name,type,content,ttl,prio)
+    values (1, 'a.blky.eu', 'MX', 'mail.blky.eu', 66, 10);
+
 INSERT INTO domains (name, type) values ('a.blky.eu', 'NATIVE');
 
 insert into records (domain_id, name,type,content,ttl,prio)
-    values (1, 'a.blky.eu', 'SOA', 'ns1.blky.eu beaty.emess.mscd.edu 23 28800 7200 604800 66', 3600, 0);
+    values (1, 'a.blky.eu', 'SOA', 'ns1.blky.eu  11 11 11 11 66', 71, 0);
 
 insert into records (domain_id, name,type,content,ttl,prio)
     values (1, 'a.blky.eu', 'NS', 'ns1.blky.eu', 66, 0);
 
 insert into records (domain_id, name,type,content,ttl,prio)
-    values (1, 'a.blky.eu', 'NS', 'ns2.blky.eu', 66, 0);
-
-insert into records (domain_id, name,type,content,ttl,prio)
-    values (1, 'a.blky.eu', 'MX', 'mail.blky.eu', 66, 10);
+    values (1, 'a.blky.eu', 'NS', 'ns2.blky.eu', 66, 0); 
 
 insert into records (domain_id, name,type,content,ttl,prio)
     values (1, 'a.blky.eu', 'A', '85.214.242.54', 66, 0);
@@ -78,19 +80,9 @@ insert into records (domain_id, name,type,content,ttl,prio)
 insert into records (domain_id, name,type,content,ttl,prio)
     values (1, 'ns2.blky.eu', 'A', '', 66, 0);
 
-insert into records (domain_id, name,type,content,ttl,prio)
-    values (1, 'www.blky.eu', 'AAAA', 'FEDC:BA98:7654:3210:FEDC:BA98:7654:3210', 66, 0);
-
-insert into records (domain_id, name,type,content,ttl,prio)
-    values (1, 'a.blky.eu', 'TXT', 'this is a test', 66, 0);
-
-insert into records (domain_id, name,type,content,ttl,prio)
-    values (1, 'ftp.blky.eu', 'CNAME', 'www.blky.eu', 66, 0);
-
-insert into records (domain_id, name,type,content,ttl,prio)
-    values (1, '27.1.168.192.in-addr.arpa', 'PTR', 'ftp', 66, 0);
+  
 
     
     insert into records (domain_id, name,type,content,ttl,prio)
-    values (1, 'ttt.a.blky.eu', 'A', '14.13.12.11', 64, 0);
+    values (1, 'ttt', 'A', '14.13.12.11', 64, 0);
     

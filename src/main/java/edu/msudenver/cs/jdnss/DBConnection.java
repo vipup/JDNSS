@@ -46,8 +46,7 @@ class DBConnection {
     }
 
     DBZone getZone(final String name) {
-        logger.traceEntry(new ObjectMessage(name));
-
+        logger.traceEntry(new ObjectMessage(name)); 
         Set<String> v = new HashSet<>();
 
         // first, get them all
@@ -57,7 +56,9 @@ class DBConnection {
             rs = stmt.executeQuery("SELECT * FROM domains");
 
             while (rs.next()) {
-                v.add(rs.getString("name"));
+            	String nameTmp = rs.getString("name");
+            	logger.traceEntry("\"SELECT * FROM domains\" {}==>{}",name, nameTmp);
+                v.add(nameTmp);
             }
             logger.traceEntry("r=={}",v);
         } catch (SQLException sqle) {
@@ -71,6 +72,7 @@ class DBConnection {
         }
 
         if (v.size() == 0) {
+        	logger.traceEntry("return new DBZone()");
             return new DBZone();
         }
 

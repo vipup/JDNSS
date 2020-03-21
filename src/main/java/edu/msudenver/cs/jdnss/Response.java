@@ -113,6 +113,7 @@ class Response {
 
     private boolean setZone(  final String name) {
         if (name == null) {
+        	logger.debug("throw new  (name == null)");
             throw new java.lang.NullPointerException("name is marked non-null but is null");
         }
         zone = JDNSS.getZone(name);

@@ -33,14 +33,18 @@ class JDNSS {
      * @see Zone
      */
     static Zone getZone(String name) {
-        logger.traceEntry(new ObjectMessage(name));
+    	logger.traceEntry("OM:{}::{}",new ObjectMessage(name),name);
 
         String longest = Utils.findLongest(bindZones.keySet(), name);
+        logger.traceEntry("longest={}",longest);
 
         if (longest == null) {
+        	logger.traceEntry("longest=={}",longest);
             if (DBConnection != null) {
+            	logger.traceEntry("DBConnection=={}",DBConnection);
                 DBZone d = DBConnection.getZone(name);
-                if (d.isEmpty()) {
+                logger.traceEntry("DBZone=={}",d);
+                if (d.isEmpty()) { 
                     return new BindZone();
                 }
                 return d;
@@ -104,8 +108,10 @@ class JDNSS {
         logger.info("Starting JDNSS version " + new Version().getVersion());
 
         if (jargs.getDBClass() != null && jargs.getDBURL() != null) {
+        	logger.debug(" process over DB ...");
             DBConnection = new DBConnection(jargs.getDBClass(), jargs.getDBURL(),
                     jargs.getDBUser(), jargs.getDBPass());
+            logger.debug(" DBConnection:{}", DBConnection);
         }
 
 
@@ -120,10 +126,12 @@ class JDNSS {
 
         String additional[] = jargs.getAdditional();
         if (additional == null) {
+        	logger.debug(" (additional == null) .");
             return;
         }
 
         for (String anAdditional: additional) {
+        	logger.debug("process additional == {}...",anAdditional);
             try {
                 String name = new File(anAdditional).getName();
 
@@ -134,6 +142,7 @@ class JDNSS {
                     if (Character.isDigit(name.charAt(0))) {
                         name = Utils.reverseIP(name);
                         name = name + ".in-addr.arpa";
+                        logger.info("name: {}",name);
                     }
                 }
 
