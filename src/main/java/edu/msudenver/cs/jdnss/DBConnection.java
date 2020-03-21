@@ -137,7 +137,9 @@ class DBConnection {
                     " AND name = \"" + name + "\"" +
                     " AND type = \"" + stype + "\";");
             while (rs.next()) {
-                addRR(type, name, rs);
+            	RR addRR = addRR(type, name, rs);
+            	logger.trace("+{}",addRR);
+				ret.add( addRR ) ; 
             }
         } catch (SQLException sqle) {
             logger.catching(sqle);
