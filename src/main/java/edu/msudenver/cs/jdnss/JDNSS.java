@@ -41,22 +41,34 @@ class JDNSS {
     	}catch(JDNSEXception e) {
     		logger.debug("longest={}",e);
     	}
+    	
+    	
 
-        if (longest == null) {
-        	logger.traceEntry("longest=={}",longest);
-            if (DBConnection != null) {
-            	logger.traceEntry("DBConnection=={}",DBConnection);
-                DBZone d = DBConnection.getZone(name);
-                logger.traceEntry("DBZone=={}",d);
-                if (d.isEmpty()) { 
-                    return new BindZone();
-                }
-                return d;
-            }
-            return new BindZone();
-        }else {
-        	logger.traceEntry("longest==={}",longest);
-        }
+		        if (longest == null) {
+		        	logger.traceEntry("longest=={}",longest);
+		            if (DBConnection != null) {
+		            	try {
+					            	logger.traceEntry("DBConnection=={}",DBConnection);
+					                DBZone d = DBConnection.getZone(name);
+					                logger.traceEntry("DBZone=={}",d);
+					                if (d.isEmpty()) { 
+					                    return new BindZone();
+					                }
+					                return d;
+		            	}catch(JDNSEXception e) {
+		            		logger.debug("DBConnection longest={}",e);
+		            		
+		            		Zone fakeTmp=new BindZone();
+		        			fackeZone(  name, fakeTmp);
+		        			return fakeTmp;
+		        			
+		            	}
+		            }
+		            return new BindZone();
+		        }else {
+		        	logger.traceEntry("longest==={}",longest);
+		        }
+		        
 
         Zone z = bindZones.getOrDefault(longest, null);
         if (z == null) {
