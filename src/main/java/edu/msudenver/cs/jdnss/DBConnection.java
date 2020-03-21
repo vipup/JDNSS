@@ -83,8 +83,8 @@ class DBConnection {
 			retval =  new DBZone(s, domainId, this);
 
 		} catch (SQLException e) {
-			logger.error("return new DBZone(EMPTY!);");
-			retval = new DBZone();
+			logger.error("return new DBZone({},{},{});",name,1,this);
+			retval = new DBZone(name, 1, this);
 			//throw  new JDNSEXception (e.getMessage());
 			 
 		} catch (JDNSEXception e) {
