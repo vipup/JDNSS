@@ -127,11 +127,15 @@ class DBConnection {
             logger.trace(stype);
              
             stmt = conn.createStatement();
+            // SQL injection over DNS! 0:-O
             rs = stmt.executeQuery(
                     "SELECT * FROM records where domain_id = " + domainId +
                             " AND name = \"" + name + "\"" +
                             " AND type = \"" + stype + "\"");
-
+            logger.trace(
+                    "SELECT * FROM records where domain_id = " + domainId +
+                    " AND name = \"" + name + "\"" +
+                    " AND type = \"" + stype + "\";");
             while (rs.next()) {
                 addRR(type, name, rs);
             }
