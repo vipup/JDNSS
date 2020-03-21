@@ -226,7 +226,7 @@ public class UtilsTest
     }
 
     @Test
-    public void findLongest ()
+    public void findLongest () throws JDNSEXception
     {
         /*
         ** Say we have a bunch of domains that end similarly. We need to
@@ -248,7 +248,7 @@ public class UtilsTest
 
         v = new HashSet<>();
         v.add ("");
-        exception.expect (NullPointerException.class);
+        exception.expect (JDNSEXception.class);
         Utils.findLongest (null, "string");
         exception.expect (AssertionError.class);
         Utils.findLongest (v, "string");

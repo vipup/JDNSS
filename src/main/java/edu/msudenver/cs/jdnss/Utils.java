@@ -17,17 +17,18 @@ class Utils {
     /**
      * Ignoring case, find the String in the Set that
      * matches the end of s, and is the longest that does so.
+     * @throws JDNSEXception 
      */
-    static String findLongest( final Set<String> e,  final String s) {
+    static String findLongest( final Set<String> e,  final String s) throws JDNSEXception {
         logger.traceEntry("E:"+e);
         logger.traceEntry("S:"+s);
-        if (e == null) {
+        if (e == null || e.isEmpty()) {
         	logger.traceEntry("throw new java.lang.NullPointerException(e is marked non-null but is null") ;
-            throw new java.lang.NullPointerException("e is marked non-null but is null");
+            throw new JDNSEXception("e is marked non-null but is null");
         }
-        if (s == null) {
+        if (s == null || "".equals(s) ) {
         	logger.traceEntry("throw new java.lang.NullPointerException(S is marked non-null but is null") ;
-            throw new java.lang.NullPointerException("s is marked non-null but is null");
+            throw new JDNSEXception("s is marked non-null but is null");
         }
         assert !e.isEmpty();
         assert !s.equals("");

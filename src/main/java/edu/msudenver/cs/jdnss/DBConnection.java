@@ -77,8 +77,15 @@ class DBConnection {
         }
 
         // then, find the longest that matches
-        String s = Utils.findLongest(v, name);
-        logger.trace(s);
+        String s=null;
+		try {
+			s = Utils.findLongest(v, name);
+			logger.trace(s);
+		} catch (JDNSEXception e) { 
+			e.printStackTrace();
+			logger.error("DBZone getZone(final String name:{}) ::{}", name,   e);
+		}
+        
 
         // then, populate a DBZone with what we found.
         try {
