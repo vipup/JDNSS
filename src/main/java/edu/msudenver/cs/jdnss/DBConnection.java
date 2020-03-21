@@ -101,6 +101,7 @@ class DBConnection {
             logger.traceExit(s);
             return new DBZone(s, domainId, this);
         } catch (SQLException sqle) {
+        	logger.error(sqle);
             try {
                 rs.close();
                 stmt.close();
@@ -110,8 +111,8 @@ class DBConnection {
                 return new DBZone();
             }
         }
-
-        return new DBZone();
+        logger.error("return new DBZone(name,1,this);");
+        return new DBZone(name,1,this);
     }
 
     public List<RR> get(final RRCode type, final String name, final int domainId) {
