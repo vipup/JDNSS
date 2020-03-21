@@ -47,17 +47,17 @@ class DBConnection {
 
     DBZone getZone(final String name) {
         logger.traceEntry(new ObjectMessage(name)); 
-        Set<String> v = new HashSet<>();
+        Set<String> v = new HashSet<>(); v.add("a.blky.eu..");v.add("a.blky.eu.");v.add("a.blky.eu");
 
         // first, get them all
         ResultSet rs = null;
         try {
-        	logger.traceEntry("\"SELECT * FROM domains\"=={}",name);
-            rs = stmt.executeQuery("SELECT * FROM domains");
+        	logger.traceEntry("\"SELECT * FROM domains  =={}",name);
+            rs = stmt.executeQuery("SELECT * FROM domains;");
 
             while (rs.next()) {
             	String nameTmp = rs.getString("name");
-            	logger.traceEntry("\"SELECT * FROM domains\" {}==>{}",name, nameTmp);
+            	logger.traceEntry("_SELECT * FROM domains {}==>{}",name, nameTmp);
                 v.add(nameTmp);
             }
             logger.traceEntry("r=={}",v);
@@ -72,7 +72,7 @@ class DBConnection {
         }
 
         if (v.size() == 0) {
-        	logger.traceEntry("return new DBZone()");
+        	logger.traceEntry("return new DBZone(__0___)");
             return new DBZone();
         }
 
@@ -115,9 +115,9 @@ class DBConnection {
     }
 
     public List<RR> get(final RRCode type, final String name, final int domainId) {
-        logger.traceEntry(new ObjectMessage(type));
-        logger.traceEntry(new ObjectMessage(name));
-        logger.traceEntry(new ObjectMessage(domainId));
+        logger.traceEntry("_T:"+new ObjectMessage(type));
+        logger.traceEntry("_N:"+new ObjectMessage(name));
+        logger.traceEntry("_D:"+new ObjectMessage(domainId));
 
         try {
             String stype = type.name();
