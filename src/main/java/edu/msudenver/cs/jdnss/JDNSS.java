@@ -54,11 +54,16 @@ class JDNSS {
                 return d;
             }
             return new BindZone();
+        }else {
+        	logger.traceEntry("longest==={}",longest);
         }
 
         Zone z = bindZones.getOrDefault(longest, null);
         if (z == null) {
+        	logger.traceEntry(" return new BindZone();==={}",z);
             return new BindZone();
+        }else {
+        	logger.traceEntry("z==={}",z);
         }
 
         return z;
