@@ -8,7 +8,7 @@ import java.util.*;
 
 class DBConnection {
     private Connection conn;
-    private Statement stmt;
+   
     private static final Logger logger = JDNSS.logger;
 
     // com.mysql.jdbc.Driver
@@ -31,100 +31,103 @@ class DBConnection {
             logger.catching(sqle);
             assert false;
         }
-
-        try {
-            stmt = conn.createStatement();
-        } catch (SQLException sqle) {
-            try {
-                stmt.close();
-                conn.close();
-            } catch (SQLException sqle2) {
-                logger.catching(sqle);
-                assert false;
-            }
-        }
+ 
     }
+    
 
-    DBZone getZone(final String name) {
-        logger.traceEntry(new ObjectMessage(name)); 
-        Set<String> v = new HashSet<>(); v.add("a.blky.eu..");v.add("a.blky.eu.");v.add("a.blky.eu");
-
-        // first, get them all
-        ResultSet rs = null;
-        try {
-        	logger.traceEntry("\"SELECT * FROM domains  =={}",name);
-            rs = stmt.executeQuery("SELECT * FROM domains;");
-
-            while (rs.next()) {
-            	String nameTmp = rs.getString("name");
-            	logger.traceEntry("_SELECT * FROM domains {}==>{}",name, nameTmp);
-                v.add(nameTmp);
-            }
-            logger.traceEntry("r=={}",v);
-        } catch (SQLException sqle) {
-            try {
-                stmt.close();
-                conn.close();
-            } catch (SQLException sqle2) {
-                logger.catching(sqle);
-                return new DBZone();
-            }
-        }
-
-        if (v.size() == 0) {
-        	logger.traceEntry("return new DBZone(__0___)");
-            return new DBZone();
-        }
-
-        // then, find the longest that matches
-        String s=null;
+	DBZone getZone(final String name) {
+		DBZone retval = new DBZone(name, 1, this); 
+		ResultSet rs = null;
+		Statement stmt = null;
 		try {
+			logger.traceEntry(new ObjectMessage(name));
+			Set<String> v = new HashSet<>(); 
+
+			stmt = conn.createStatement();
+			// first, get them all 
+
+			logger.traceEntry("\"SELECT * FROM domains  =={}", name);
+			rs = stmt.executeQuery("SELECT * FROM domains;");
+
+			while (rs.next()) {
+				String nameTmp = rs.getString("name");
+				logger.traceEntry("_SELECT * FROM domains {}==>{}", name, nameTmp);
+				v.add(nameTmp);
+			}
+			
+			logger.traceEntry("r=={}", v);
+
+			if (v.size() == 0) {
+				logger.traceEntry("return new DBZone(__0___)");
+				return new DBZone();
+			}
+
+			// then, find the longest that matches
+			String s = null;
+
 			s = Utils.findLongest(v, name);
 			logger.trace(s);
-		} catch (JDNSEXception e) { 
-			e.printStackTrace();
-			logger.error("DBZone getZone(final String name:{}) ::{}", name,   e);
+
+			// then, populate a DBZone with what we found.
+
+			logger.traceEntry("SELECT * FROM domains WHERE name = '{}..'", s);
+			rs = stmt.executeQuery("SELECT * FROM domains WHERE name = '" + s + "'");
+
+			rs.next();
+			final int domainId = rs.getInt("id");
+			logger.trace("domainId={}", domainId);
+
+			assert !rs.next();
+
+			logger.traceExit(s);
+			retval =  new DBZone(s, domainId, this);
+
+		} catch (SQLException e) {
+			logger.error("return new DBZone(name,1,this);");
+			 
+		} catch (JDNSEXception e) {
+			logger.error("return new DBZone(name,1,this);->{}",e);
+			 
+		}finally {
+			stclose(stmt);
+			rsclose(rs); 
 		}
-        
+		return retval;
+	}
 
-        // then, populate a DBZone with what we found.
-        try {
-        	logger.traceEntry("SELECT * FROM domains WHERE name = '{}..'", s);
-            rs = stmt.executeQuery ("SELECT * FROM domains WHERE name = '" + s + "'");
 
-            rs.next();
-            final int domainId = rs.getInt("id");
-            logger.trace("domainId={}",domainId);
+	private void stclose(Statement stmt) {
+		try {
+			stmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
-            assert !rs.next();
 
-            logger.traceExit(s);
-            return new DBZone(s, domainId, this);
-        } catch (SQLException sqle) {
-        	logger.error(sqle);
-            try {
-                rs.close();
-                stmt.close();
-                conn.close();
-            } catch (SQLException sqle2) {
-                logger.catching(sqle);
-                return new DBZone();
-            }
-        }
-        logger.error("return new DBZone(name,1,this);");
-        return new DBZone(name,1,this);
-    }
+	private void rsclose(ResultSet rs) {
+		try {
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
     public List<RR> get(final RRCode type, final String name, final int domainId) {
         logger.traceEntry("_T:"+new ObjectMessage(type));
         logger.traceEntry("_N:"+new ObjectMessage(name));
         logger.traceEntry("_D:"+new ObjectMessage(domainId));
-
-        try {
+        Statement stmt = null;
+        ResultSet rs =null;
+        List<RR> ret= Collections.emptyList();
+        try { 
             String stype = type.name();
             logger.trace(stype);
-            List<RR> ret = new ArrayList<>();
-            ResultSet rs = stmt.executeQuery(
+             
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(
                     "SELECT * FROM records where domain_id = " + domainId +
                             " AND name = \"" + name + "\"" +
                             " AND type = \"" + stype + "\"");
@@ -132,13 +135,14 @@ class DBConnection {
             while (rs.next()) {
                 addRR(type, name, rs);
             }
-
-            return ret;
         } catch (SQLException sqle) {
             logger.catching(sqle);
-        }
-
-        return Collections.emptyList();
+        }finally {
+			stclose(stmt);
+			rsclose(rs); 
+		}
+        return ret;
+ 
     }
 
     private RR addRR(final RRCode type, final String name, final ResultSet rs) throws SQLException {
