@@ -83,8 +83,9 @@ class DBConnection {
 			retval =  new DBZone(s, domainId, this);
 
 		} catch (SQLException e) {
-			logger.error("return new DBZone({},{},{});<<<{}",name,1,this,e);
-			retval = new DBZone(name, 1, this);
+			logger.warn("levelUP:: return new DBZone({},{},{});<<<{}",name,1,this,e);
+			// levelUP
+			retval = new DBZone(name.substring(name.indexOf(".")+1), 1, this);
 			//throw  new JDNSEXception (e.getMessage());
 			 
 		} catch (JDNSEXception e) {
