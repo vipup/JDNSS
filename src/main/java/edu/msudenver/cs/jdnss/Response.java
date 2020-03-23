@@ -164,7 +164,7 @@ class Response {
 				List<RR> get(RRCode type, String name) { 
 					List<RR> retval=new ArrayList<RR>();
 					logger.debug("FAKEIT!!!FAKEIT!!!FAKEIT!!!FAKEIT!!!{}/name",type,name );  
-					retval.add("SOA".equals(type.toString())?SOA:new ARR(name, ttl, address));
+					retval.add("A".equals(type.toString())?new ARR(name, ttl, address):SOA);
 					return retval;
 				}
 			}; 
