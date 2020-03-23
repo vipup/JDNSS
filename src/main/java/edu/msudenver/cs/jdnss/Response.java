@@ -118,10 +118,12 @@ class Response {
         }
         zone = JDNSS.getZone(name);
         if (zone.isEmpty()) {
-            logger.debug("Zone lookup of " + name + " failed");
+        	logger.debug("Zone lookup of " + name + " failed");
             header.setRcode(ErrorCodes.REFUSED.getCode());
             header.setAA(false);
             return false;
+        }else {
+        	logger.debug("Zone lookup result: {} --> {}:::[{}]", name,zone, header);
         }
         return true;
     }
