@@ -161,11 +161,11 @@ class Response {
 				String getName() { return name; }
 				
 				@Override
-				List<RR> get(RRCode type, String name) { 
+				List<RR> get(RRCode type, String namePar) { 
 					List<RR> retval=new ArrayList<RR>();
-					logger.debug("FAKEIT!!!FAKEIT!!!FAKEIT!!!FAKEIT!!!{}/name",type,name );  
+					logger.debug("FAKEIT!!!FAKEIT!!!FAKEIT!!!FAKEIT!!!{}/{}//:{}//// ",type,namePar, name );  
 					//retval.add("A".equals(type.toString())?new ARR(name, ttl, address):SOA);
-					retval.add(DBConnection.dataToRR(type, name, name, "SOA".equals(""+type)?"ns2.blky.eu  11 12 13 14 15 16 17 18 19 20":"123.124.125.126", 66, 0));
+					retval.add(DBConnection.dataToRR(type, namePar, name, "SOA".equals(""+type)?"ns2.blky.eu  11 12 13 14 15 16 17 18 19 20":"123.124.125.126", 66, 0));
 					return retval;
 				}
 			}; 
