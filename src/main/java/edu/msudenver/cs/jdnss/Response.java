@@ -134,9 +134,23 @@ class Response {
         final List<RR> w = zone.get(RRCode.SOA, name);
         if (w.isEmpty()) {
             logger.debug("SOA lookup of " + name + " failed");
-            header.setAA(false);
-            header.setRcode(ErrorCodes.REFUSED.getCode());
-            return false;
+//            header.setAA(false);
+//            header.setRcode(ErrorCodes.REFUSED.getCode());
+//            return false;
+            logger.debug("FAKEIT!!!FAKEIT!!!FAKEIT!!!FAKEIT!!!");       
+			String domain = "a.blky.eu";
+			String server= "ns1.blky.eu";
+			String contact= "postmaster@blky.eu";
+			int serial = 70;
+			int refresh = 80;
+			int retry = 90;
+			int expire = 10;
+			int minimum = 20;
+			int ttl = 30;            
+            SOA = new SOARR(domain, server, contact, serial, refresh, retry, expire, minimum, ttl);
+            minimum = SOA.getMinimum();
+            return true;
+        	
         }
         SOA = (SOARR) w.get(0);
         minimum = SOA.getMinimum();

@@ -53,7 +53,7 @@ class JDNSS {
 					                logger.traceEntry("DBZone=={}",d);
 					                if (d.isEmpty()) { 
 					                    Zone fakeZone = new BindZone(name);
-					                    fackeZone( name, fakeZone);
+					                    fakeZone( name, fakeZone);
 										return fakeZone ;
 					                }
 					                return d;
@@ -76,7 +76,7 @@ class JDNSS {
         return z;
     }
 
-	private static void fackeZone(String name, Zone z)	{
+	private static void fakeZone(String name, Zone z)	{
 		try {
 			String domain = "a.blky.eu";
 			String server= "ns1.blky.eu";
