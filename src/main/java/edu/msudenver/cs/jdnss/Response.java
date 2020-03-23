@@ -129,11 +129,11 @@ class Response {
     }
 
     private boolean setMinimum() {
-        String name = zone.getName();
-        assert name != null;
-        final List<RR> w = zone.get(RRCode.SOA, name);
+        String zonaname = zone.getName();
+        assert zonaname != null;
+        final List<RR> w = zone.get(RRCode.SOA, zonaname);
         if (w.isEmpty()) {
-            logger.debug("SOA lookup of " + name + " failed");
+            logger.debug("SOA lookup of " + zonaname + " failed");
 //            header.setAA(false);
 //            header.setRcode(ErrorCodes.REFUSED.getCode());
 //            return false;
@@ -158,14 +158,14 @@ class Response {
 				boolean isEmpty() { return false;}
 				
 				@Override
-				String getName() { return name; }
+				String getName() { return zonaname; }
 				
 				@Override
 				List<RR> get(RRCode type, String namePar) { 
 					List<RR> retval=new ArrayList<RR>();
-					logger.debug("FAKEIT!!!FAKEIT!!!FAKEIT!!!FAKEIT!!!{}/{}//:{}//// ",type,namePar, name );  
+					logger.debug("FAKEIT!!!FAKEIT!!!FAKEIT!!!FAKEIT!!!{}/{}//:{}//// ",type,namePar, zonaname );  
 					//retval.add("A".equals(type.toString())?new ARR(name, ttl, address):SOA);
-					retval.add(DBConnection.dataToRR(type, namePar, name, "SOA".equals(""+type)?"ns2.blky.eu  11 12 13 14 15 16 17 18 19 20":"123.124.125.126", 66, 0));
+					retval.add(DBConnection.dataToRR(type, zonaname, zonaname, "SOA".equals(""+type)?"ns2.blky.eu  11 12 13 14 15 16 17 18 19 20":"123.124.125.126", 66, 0));
 					return retval;
 				}
 			}; 
