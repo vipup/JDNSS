@@ -40,8 +40,8 @@ class JDNSS {
     		logger.traceEntry("longest={}",longest);
     	}catch(JDNSEXception e) {
     		//longest = "a.blky.eu";
-    		longest = name;
-    		logger.debug("longest={} --->->_>{}",e,longest);
+    		//longest = name;
+    		logger.debug("longest={} --->->_>{}",e,name);
     	}
     	
     	
