@@ -137,7 +137,10 @@ class Response {
 //            header.setAA(false);
 //            header.setRcode(ErrorCodes.REFUSED.getCode());
 //            return false;
-            logger.debug("FAKEIT!!!FAKEIT!!!FAKEIT!!!FAKEIT!!!{}",zone );       
+            logger.debug("FAKEIT!!!FAKEIT!!!FAKEIT!!!FAKEIT!!!{}",zone );   
+            
+            header.setAA(true);
+            header.setRcode(ErrorCodes.NOERROR.getCode());
 			String domain = "a.blky.eu";
 			String server= "ns1.blky.eu";
 			String contact= "postmaster@blky.eu";
