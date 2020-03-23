@@ -39,7 +39,8 @@ class JDNSS {
     		  longest = Utils.findLongest(bindZones.keySet(), name);
     		logger.traceEntry("longest={}",longest);
     	}catch(JDNSEXception e) {
-    		logger.debug("longest={}",e);
+    		longest = name;
+    		logger.debug("longest={} --->->_>",e,longest);
     	}
     	
     	
