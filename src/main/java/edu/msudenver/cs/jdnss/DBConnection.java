@@ -185,6 +185,8 @@ class DBConnection {
                         Integer.parseInt(s[6]), dbttl);
             }
             case NS: { return new NSRR(dbname, dbttl, dbcontent); }
+            // FIXME TODO 
+            case RRSIG:
             case A: { return new ARR(dbname, dbttl, dbcontent); }
             case AAAA: { return new AAAARR(dbname, dbttl, dbcontent); }
             case MX: { return new MXRR(dbname, dbttl, dbcontent, dbprio); }
@@ -195,7 +197,7 @@ class DBConnection {
                 final String[] s = dbcontent.split("\\s+");
                 return new HINFORR(dbname, dbttl, s[0], s[1]);
             }
-            case RRSIG:
+            //case RRSIG:
             case NSEC:
             case DNSKEY:
             case NSEC3:
