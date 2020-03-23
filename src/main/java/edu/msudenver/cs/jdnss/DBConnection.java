@@ -166,7 +166,15 @@ class DBConnection {
         final int dbttl = rs.getInt("ttl");
         final int dbprio = rs.getInt("prio");
         logger.trace("RR:{}//{}//{}//{}//[{}]/:{}",dbname,dbcontent,dbttl,dbprio,type,name);
-        final RR emptyRR = new EmptyRR();
+        
+        
+        return dataToRR(type, name, dbname, dbcontent, dbttl, dbprio);
+    }
+
+
+	public static final RR dataToRR(final RRCode type, final String name, final String dbname, final String dbcontent,
+			final int dbttl, final int dbprio) {
+		final RR emptyRR = new EmptyRR();
 
         switch (type) {
             case SOA: {
@@ -198,5 +206,5 @@ class DBConnection {
             }
         }
         return emptyRR;
-    }
+	}
 }
