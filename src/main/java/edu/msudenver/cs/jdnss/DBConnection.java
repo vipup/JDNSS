@@ -164,10 +164,7 @@ class DBConnection {
         final String dbname = rs.getString("name");
         final String dbcontent = rs.getString("content");
         final int dbttl = rs.getInt("ttl");
-        final int dbprio = rs.getInt("prio");
-        logger.trace("RR:{}//{}//{}//{}//[{}]/:{}",dbname,dbcontent,dbttl,dbprio,type,name);
-        
-        
+        final int dbprio = rs.getInt("prio"); 
         return dataToRR(type, name, dbname, dbcontent, dbttl, dbprio);
     }
 
@@ -175,7 +172,7 @@ class DBConnection {
 	public static final RR dataToRR(final RRCode type, final String name, final String dbname, final String dbcontent,
 			final int dbttl, final int dbprio) {
 		final RR emptyRR = new EmptyRR();
-
+		logger.trace("dataToRR:{}/{}//{}///{}////[{}]//:{}//",dbname,dbcontent,dbttl,dbprio,type,name);
         switch (type) {
             case SOA: {
                 String[] s = dbcontent.split("\\s+");
@@ -185,8 +182,7 @@ class DBConnection {
                         Integer.parseInt(s[6]), dbttl);
             }
             case NS: { return new NSRR(dbname, dbttl, dbcontent); }
-            // FIXME TODO 
-            case RRSIG:
+             
             case A: { return new ARR(dbname, dbttl, dbcontent); }
             case AAAA: { return new AAAARR(dbname, dbttl, dbcontent); }
             case MX: { return new MXRR(dbname, dbttl, dbcontent, dbprio); }
@@ -197,7 +193,7 @@ class DBConnection {
                 final String[] s = dbcontent.split("\\s+");
                 return new HINFORR(dbname, dbttl, s[0], s[1]);
             }
-            //case RRSIG:
+            case RRSIG:
             case NSEC:
             case DNSKEY:
             case NSEC3:
