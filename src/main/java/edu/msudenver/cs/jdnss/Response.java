@@ -137,7 +137,7 @@ class Response {
 //            header.setAA(false);
 //            header.setRcode(ErrorCodes.REFUSED.getCode());
 //            return false;
-            logger.debug("FAKEIT!!!FAKEIT!!!FAKEIT!!!FAKEIT!!!");       
+            logger.debug("FAKEIT!!!FAKEIT!!!FAKEIT!!!FAKEIT!!!{}",zone );       
 			String domain = "a.blky.eu";
 			String server= "ns1.blky.eu";
 			String contact= "postmaster@blky.eu";
@@ -149,6 +149,27 @@ class Response {
 			int ttl = 30;            
             SOA = new SOARR(domain, server, contact, serial, refresh, retry, expire, minimum, ttl);
             minimum = SOA.getMinimum();
+			String address="1.2.3.4";
+			//((BindZone)z).add( "A", new ARR(name, ttl, address)) ;
+			 
+			zone = new Zone() {
+				
+				@Override
+				boolean isEmpty() { return false;}
+				
+				@Override
+				String getName() { return name; }
+				
+				@Override
+				List<RR> get(RRCode type, String name) { 
+					List<RR> retval=new ArrayList<RR>();
+					logger.debug("FAKEIT!!!FAKEIT!!!FAKEIT!!!FAKEIT!!!{}/name",type,name );  
+					retval.add("SOA".equals(type.toString())?SOA:new ARR(name, ttl, address));
+					return retval;
+				}
+			}; 
+            //zone.get(RRCode.NS, zone.getName());
+            
             return true;
         	
         }
