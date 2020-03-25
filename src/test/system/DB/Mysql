@@ -56,40 +56,19 @@ GRANT ALL ON records TO JDNSS@localhost IDENTIFIED BY 'JDNSS';
 
 -- insert into records (domain_id, name,type,content,ttl,prio)
 --    values (1, 'www.blky.eu', 'AAAA', 'FEDC:BA98:7654:3210:FEDC:BA98:7654:3210', 66, 0);
-insert into records (domain_id, name,type,content,ttl,prio)
-    values (1, 'a.blky.eu', 'MX', 'mail.blky.eu', 66, 10);
+insert into records (domain_id, name,type,content,ttl,prio)    values (1, 'a.blky.eu', 'MX', 'mail.blky.eu', 66, 10);
 
 INSERT INTO domains (name, type) values ('a.blky.eu', 'NATIVE');
 
-insert into records (domain_id, name,type,content,ttl,prio)
-    values (1, 'a.blky.eu', 'SOA', 'ns1.blky.eu  11 11 11 11 66', 71, 0);
-
-insert into records (domain_id, name,type,content,ttl,prio)
-    values (1, 'a.blky.eu', 'NS', 'ns1.blky.eu', 66, 0);
-
-insert into records (domain_id, name,type,content,ttl,prio)
-    values (1, 'a.blky.eu', 'NS', 'ns2.blky.eu', 66, 0); 
-
-insert into records (domain_id, name,type,content,ttl,prio)
-    values (1, 'a.blky.eu', 'A', '85.214.242.54', 66, 0);
- 
-
-insert into records (domain_id, name,type,content,ttl,prio)
-    values (1, 'ns1.blky.eu', 'A', '85.214.242.54', 66, 0);
-
-insert into records (domain_id, name,type,content,ttl,prio)
-    values (1, 'ns2.blky.eu', 'A', '', 66, 0);
-
-  
-
-    
-    insert into records (domain_id, name,type,content,ttl,prio)
-    values (1, 'ttt', 'A', '14.13.12.11', 64, 0);
-    
-        insert into records (domain_id, name,type,content,ttl,prio)
-    values (1, 'googlonos.a.blky.eu', 'A', '8.8.8.8', 64, 0);
-            insert into records (domain_i
-insert into records (domain_id, name,type,content,ttl,prio)     values (1, 'timer.a.blky.eu', 'SOA', 'ns2.blky.eu  11 12 13 14 15 16 17 18 19 20', 64, 0);
-insert into records (domain_id, name,type,content,ttl,prio)     values (1, 'timer.a.blky.eu', 'A', '18.44.33.238', 64, 0);
+insert into records (domain_id, name,type,content,ttl,prio)    values (1, 'a.blky.eu', 			'SOA', 		'ns1.blky.eu  11 12 13 14 15 16 17 18 19 20', 71, 0);
+insert into records (domain_id, name,type,content,ttl,prio)    values (1, 'a.blky.eu', 			'NS', 		'ns1.blky.eu', 66, 0);
+insert into records (domain_id, name,type,content,ttl,prio)    values (1, 'a.blky.eu', 			'NS', 		'ns2.blky.eu', 66, 0); 
+insert into records (domain_id, name,type,content,ttl,prio)    values (1, 'a.blky.eu', 			'A', 		'85.214.242.54', 66, 0);
+insert into records (domain_id, name,type,content,ttl,prio)    values (1, 'ns1.blky.eu', 		'A', 		'85.214.242.54', 66, 0);
+insert into records (domain_id, name,type,content,ttl,prio)    values (1, 'ns2.blky.eu', 		'A', 		'', 66, 0);
+insert into records (domain_id, name,type,content,ttl,prio)    values (1, 'ttt', 				'A', 		'14.13.12.11', 64, 0);
+insert into records (domain_id, name,type,content,ttl,prio)    values (1, 'googlonos.a.blky.eu','A', 		'8.8.8.8', 64, 0);
+insert into records (domain_id, name,type,content,ttl,prio)    values (1, 'timer.a.blky.eu', 	'SOA', 		'ns2.blky.eu  11 12 13 14 15 16 17 18 19 20', 64, 0);
+insert into records (domain_id, name,type,content,ttl,prio)    values (1, 'timer.a.blky.eu', 	'A', 		'18.44.33.238', 64, 0);
  
     
